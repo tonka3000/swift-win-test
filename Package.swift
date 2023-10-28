@@ -5,7 +5,8 @@ import PackageDescription
 let MyApp = Package(
     name: "MyTestApps",
     products: [
-        .executable(name: "MyApp", targets: ["MyApp"])
+        .executable(name: "MyApp", targets: ["MyApp"]),
+        .executable(name: "SimpleApp", targets: ["SimpleApp"])
     ],
     dependencies: [
     .package(name:"swift-win32",
@@ -21,6 +22,14 @@ let MyApp = Package(
                 .product(name: "SwiftWin32UI", package: "swift-win32")],
             path: "MyApp",
             exclude: ["Info.plist", "MyApp.exe.manifest"],
+            swiftSettings: [.unsafeFlags(["-parse-as-library"])]
+        ),
+        .executableTarget(
+            name: "SimpleApp",
+            dependencies: [
+                .product(name: "SwiftWin32UI", package: "swift-win32")],
+            path: "SimpleApp",
+            exclude: ["Info.plist", "SimpleApp.exe.manifest"],
             swiftSettings: [.unsafeFlags(["-parse-as-library"])]
         )
     ]
